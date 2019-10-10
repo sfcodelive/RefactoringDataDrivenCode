@@ -1,0 +1,51 @@
+<template>
+  <lightning-card title="Clone this case">
+    <div slot="actions">
+      <lightning-layout horizontal-align="space">
+        <lightning-layout-item padding="around-small">
+          <div class="custom-box">
+            <lightning-input
+              variant="label-hidden"
+              type="number"
+              name="numberOfClones"
+              placeholder="# of Clones"
+              onchange={handleCloneCountChange}
+            >
+            </lightning-input>
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+          <div class="custom-box">
+            <lightning-button
+              label="Make Clones"
+              onclick={doCloneCases}
+            ></lightning-button>
+          </div>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+    <!-- if we have results IE: the user has cloned cases they show up below in a grid. -->
+    <p class="slds-p-horizontal_small">
+      <template if:true={displayClonedCases}>
+        <lightning-layout multiple-rows="true">
+          <template for:each={clonedCaseIds} for:item="id">
+            <lightning-layout-item padding="around-small" size="6" key={id}>
+              <div>
+                <lightning-record-form
+                  record-id={id}
+                  layout-type="Compact"
+                  mode="view"
+                  object-api-name="Case"
+                  density="Compact"
+                  columns="1"
+                ></lightning-record-form>
+              </div>
+            </lightning-layout-item>
+          </template>
+        </lightning-layout>
+      </template>
+    </p>
+
+    <p slot="footer">#CodeLiveForever!</p>
+  </lightning-card>
+</template>
